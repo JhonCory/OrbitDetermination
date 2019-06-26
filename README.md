@@ -1,7 +1,7 @@
 # OrbitDetermination
 This software uses Gauss’s Method of Orbital Determination to determine the six orbital elements of an asteroid, given the data from three separate observations made by the same telescope at different dates. Originally made for SSP 2012, Westmont site.
 
-INPUT: a file containing a table that holds, for each Observation, the Right Ascension (hours, minutes, seconds / degrees) and the Declination (degrees, minutes, seconds / degrees) of the asteroid observed, as well as the time (UT / Julian Date) of the observation. See data.csv for example formatting.
+INPUT: a csv file containing a table that holds, for each Observation, the Right Ascension (hours, minutes, seconds / degrees) and the Declination (degrees, minutes, seconds / degrees) of the asteroid observed, as well as the time (UT / Julian Date) of the observation. See data.csv for example formatting.
 
 OUTPUT: 
 	1. The Semi-Major Axis (a), in AU
