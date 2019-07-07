@@ -25,6 +25,18 @@ sun relative to the earth at the time of the observation.
 ###############################################################################
 ###############################################################################
 
+# k is the Gaussian gravitational constant, expressed in radians per day
+# NOTE - this program was written July 2012. At the time, the standard
+# value for the Gaussian gravitational constant was the one defined by
+# Carl Gauss in 1809. However, this may no longer be the acceptable value
+# for k. If not, the value below for k can be replaced.
+k = 0.01720209895
+
+# c is the speed of light, expressed in AU per day (JD)
+c = 173.1446
+
+###############################################################################
+
 # Convert degrees to radians
 def degs2rads(degs):
     return (degs/360)*2*pi
@@ -113,9 +125,6 @@ def reapprox_a(r2,rdot,tau1,tau3):
 # Recalculate tau1, tau2, tau3 based on latest estimates for distance of
 # the earth from the asteroid 
 def correct_for_light(t1, t2, t3, p1d, p2d, p3d):
-    # c is the speed of light, expressed in AU per day (JD)
-    c = 173.1446
-
     # Factor in the speed of light and the current best estimates of the 
     # distances from the asteroid to recalculate observed times from observation
     # times
@@ -130,14 +139,6 @@ def correct_for_light(t1, t2, t3, p1d, p2d, p3d):
     return tau1, tau2, tau3
 
 def get_tau(t1, t2, t3):
-    # k is the Gaussian gravitational constant, expressed in radians per day
-    # NOTE - this program was written July 2012. At the time, the standard
-    # value for the Gaussian gravitational constant was the one defined by
-    # Carl Gauss in 1809. However, this may no longer be the acceptable value
-    # for k. If not, the value below for k can be replaced.
-    # TODO - make global variable?
-    k = 0.01720209895
-
     tau1 = k*(t1-t2)
     tau2 = k*(t3-t1)
     tau3 = k*(t3-t2)
@@ -148,7 +149,7 @@ def julian_date(month,day,year,time):
     JD = J0 + time/24
     return JD
 
-def AngleAmb(angle1,angle2):
+def get_angle_amb(angle1,angle2):
     if angle1 < 0:
             angle1m = [pi - angle1, 2*pi + angle1]
     else:
@@ -172,9 +173,6 @@ position and velocity vectors of the asteroid relative to the sun at
 the time associated with the second observation: r and rdot
 """
 def calculate_vectors(RA1,Dec1,t1,RA2,Dec2,t2,RA3,Dec3,t3,R1,R2,R3,R1dot,R2dot,R3dot):
-    # c is the speed of light, expressed in AU per day (JD)
-    c = 173.1446
-
     # Convert RA and Dec into radians
     RA1, RA2, RA3 = hrs2rads(RA1), hrs2rads(RA2), hrs2rads(RA3)
     Dec1, Dec2, Dec3 = degs2rads(Dec1), degs2rads(Dec2), degs2rads(Dec3)
@@ -262,7 +260,6 @@ def determine_orbital_elements(r,rdot):
     print " "
 
     # Semi-Major Axis, a
-    k = 0.01720209895
     mu = 1
     a = 1/(2/mag(r) - (mag(rdot)**2)/mu)
     print "The semi-major axis equals", a
@@ -280,18 +277,18 @@ def determine_orbital_elements(r,rdot):
     # Longitude of Ascending Node (o)
     o1 = asin(l[0]/(mag(l)*sin(irads)))
     o2 = acos(-l[1]/(mag(l)*sin(irads)))
-    orads = AngleAmb(o1,o2)
+    orads = get_angle_amb(o1,o2)
     o = orads*180/pi
     print "The longitude of the ascending node of the asteroid orbit equals", o
 
     # Argument of the Perihilion (w)
     U1 = asin(r[2]/(mag(r)*sin(irads)))
     U2 = acos((r[0]*cos(orads)+r[1]*sin(orads))/mag(r))
-    U = AngleAmb(U1,U2)
+    U = get_angle_amb(U1,U2)
     
     v1 = asin((((a*(1-e**2))/mag(l))*(dot(r,rdot)/mag(r)))/e)
     v2 = acos(((a*(1-e**2))/mag(r) - 1)/e)
-    v = AngleAmb(v1,v2)
+    v = get_angle_amb(v1,v2)
     
     wrads = U - v
     w = wrads*180/pi % 360
