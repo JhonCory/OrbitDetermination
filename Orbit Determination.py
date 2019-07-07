@@ -168,7 +168,7 @@ def AngleAmb(angle1,angle2):
 
 """
 Recurse over three observational inputs using Gauss's Method and estimate the
-position and velocity vectors of the asteroid relative to the earth at
+position and velocity vectors of the asteroid relative to the sun at
 the time associated with the second observation: r and rdot
 """
 def calculate_vectors(RA1,Dec1,t1,RA2,Dec2,t2,RA3,Dec3,t3,R1,R2,R3,R1dot,R2dot,R3dot):
