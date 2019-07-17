@@ -11,6 +11,6 @@ OUTPUT:
 	5. The Argument of the Periapsis, (omega), in degrees
 	6. The Mean Anomaly (M_0), in degrees
 
-To run the Orbit Determination program with the example data (which comes from Observations of asteroid 1998 QS52 made 6/18/12, 7/15/12, and 7/19/12 at Westmont College using the Mead 14" and Keck 12" telescopes), run OrbitDetermination.py in Python and input "data.csv" when prompted for the input file.
+To run the Orbit Determination program with the example data (which comes from Observations of asteroid 1998 QS52 made 6/18/12, 7/15/12, and 7/19/12 at Westmont College using the Mead 14" and Keck 12" telescopes), run OrbitDetermination.py using VPython in IDLE 2.7.9 and input "data.csv" when prompted for the input file.
 
 This program was written by E.J. Khouri in 2012.
